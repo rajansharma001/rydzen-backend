@@ -3,10 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRoutes } from "../routes/authRoutes";
+import { DBConnect } from "./DBConnect";
 
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 7000;
+
+DBConnect();
 
 app.use(express.json());
 app.use(cookieParser());
