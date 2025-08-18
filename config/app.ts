@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRoutes } from "../routes/authRoutes";
 import { DBConnect } from "./DBConnect";
+import { carRoutes } from "../routes/carRoutes";
 
 const app = express();
 dotenv.config();
@@ -30,6 +31,9 @@ app.get("/", (req, res) => {
 
 // auth routes
 app.use("/api/auth/", authRoutes);
+
+// Car routes
+app.use("/api/car", carRoutes);
 
 app.listen(port, () => {
   console.log(`Port Running at server  http://localhost:${port}`);

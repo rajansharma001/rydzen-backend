@@ -1,7 +1,17 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 
-const UserModel = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
+    firstName: {
+      type: String,
+      trim: true,
+      minlength: 3,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      minlength: 3,
+    },
     email: {
       type: String,
       trim: true,
@@ -11,15 +21,33 @@ const UserModel = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    fullName: {
+    phone: {
+      type: String,
+      unique: true,
+    },
+    profileImg: {
       type: String,
       trim: true,
     },
+
     role: {
       type: String,
       enum: ["admin", "user"],
+      default: "user",
+      trim: true,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isSuspend: {
+      type: Boolean,
+      default: false,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
-export const User = mongoose.models.User || mongoose.model("User", UserModel);
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);
