@@ -6,6 +6,7 @@ export interface UserTypes {
   phone?: string;
   profileImg?: string;
   role: "admin" | "user";
+  isSuspend: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

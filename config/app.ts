@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import { authRoutes } from "../routes/authRoutes";
 import { DBConnect } from "./DBConnect";
 import { carRoutes } from "../routes/carRoutes";
+import { adminRoutes } from "../routes/adminRoutes";
+import { verifyRole } from "../middlewares/verifyRoles";
 
 const app = express();
 dotenv.config();
@@ -34,6 +36,10 @@ app.use("/api/auth/", authRoutes);
 
 // Car routes
 app.use("/api/car", carRoutes);
+
+// admin routes
+
+app.use("/api/admin/", verifyRole(["admin"]), adminRoutes);
 
 app.listen(port, () => {
   console.log(`Port Running at server  http://localhost:${port}`);
