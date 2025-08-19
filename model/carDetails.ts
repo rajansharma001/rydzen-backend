@@ -10,6 +10,10 @@ const carSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    category: {
+      type: String,
+      trim: true,
+    },
     model: {
       type: String,
       trim: true,

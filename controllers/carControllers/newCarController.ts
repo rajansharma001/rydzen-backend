@@ -8,6 +8,7 @@ export const newCarController = async (req: Request, res: Response) => {
       name,
       brand,
       model,
+      category,
       year,
       image,
       transmission,
@@ -24,6 +25,7 @@ export const newCarController = async (req: Request, res: Response) => {
       !name ||
       !brand ||
       !model ||
+      !category ||
       !year ||
       !image ||
       !transmission ||
@@ -42,6 +44,7 @@ export const newCarController = async (req: Request, res: Response) => {
       name,
       brand,
       model,
+      category,
       year,
       image,
       transmission,

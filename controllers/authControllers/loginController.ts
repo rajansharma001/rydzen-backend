@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { User } from "../model/userModel";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { User } from "../../model/userModel";
 
 export const LoginController = async (req: Request, res: Response) => {
   try {

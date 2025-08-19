@@ -2,6 +2,7 @@ export interface carDetailsTypes {
   name: string;
   brand: string;
   model: string;
+  category: string;
   year: string;
   image: string;
   transmission: string;
