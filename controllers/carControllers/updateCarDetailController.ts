@@ -56,7 +56,7 @@ export const updateCarDetailsController = async (
         .json({ error: "You are not authorized to mofidy this data." });
     }
 
-    const updatedCar = (await CarDetails.findById(_id)) as carDetailsTypes;
+    const updatedCar = await CarDetails.findById(_id);
 
     return res
       .status(200)
