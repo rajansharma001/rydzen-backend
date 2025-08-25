@@ -7,6 +7,7 @@ import { DBConnect } from "./DBConnect";
 import { carRoutes } from "../routes/carRoutes";
 import { adminRoutes } from "../routes/adminRoutes";
 import { verifyRole } from "../middlewares/verifyRoles";
+import { catRoute } from "../routes/catRoutes";
 
 const app = express();
 dotenv.config();
@@ -37,8 +38,10 @@ app.use("/api/auth/", authRoutes);
 // Car routes
 app.use("/api/car", carRoutes);
 
-// admin routes
+// Car routes
+app.use("/api/cat", catRoute);
 
+// admin routes
 app.use("/api/admin/", verifyRole(["admin"]), adminRoutes);
 
 app.listen(port, () => {
