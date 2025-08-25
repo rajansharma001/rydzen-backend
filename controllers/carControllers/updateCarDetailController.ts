@@ -14,7 +14,6 @@ export const updateCarDetailsController = async (
       model,
       category,
       year,
-      image,
       transmission,
       fuelType,
       seatingCapacity,
@@ -22,6 +21,12 @@ export const updateCarDetailsController = async (
       pricePerDay,
       availability,
     } = req.body as carDetailsTypes;
+
+    const file = req.file;
+    if (!file) {
+      return res.status(404).json({ error: "Please provide car an image." });
+    }
+    const carImg = file?.path || "";
 
     const checkCarById = (await CarDetails.findById(_id)) as carDetailsTypes;
     if (!checkCarById) {
@@ -39,7 +44,7 @@ export const updateCarDetailsController = async (
           model: model || checkCarById.model,
           category: category || checkCarById.category,
           year: year || checkCarById.year,
-          image: image || checkCarById.image,
+          image: carImg || checkCarById.image,
           transmission: transmission || checkCarById.transmission,
           fuelType: fuelType || checkCarById.fuelType,
           seatingCapacity: seatingCapacity || checkCarById.seatingCapacity,

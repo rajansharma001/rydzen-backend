@@ -27,7 +27,6 @@ export const newCarController = async (req: Request, res: Response) => {
       !model ||
       !category ||
       !year ||
-      !image ||
       !transmission ||
       !fuelType ||
       !seatingCapacity ||
@@ -36,9 +35,14 @@ export const newCarController = async (req: Request, res: Response) => {
       availability === undefined
     ) {
       return res
-        .status(40)
+        .status(404)
         .json({ error: "Please fill all required form fields." });
     }
+    const file = req.file;
+    if (!file) {
+      return res.status(404).json({ error: "Please provide car an image." });
+    }
+    const carImg = file?.path || "";
 
     const createNewCar = await CarDetails.create({
       name,
@@ -46,7 +50,7 @@ export const newCarController = async (req: Request, res: Response) => {
       model,
       category,
       year,
-      image,
+      image: carImg,
       transmission,
       fuelType,
       seatingCapacity,
