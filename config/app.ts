@@ -8,6 +8,7 @@ import { carRoutes } from "../routes/carRoutes";
 import { adminRoutes } from "../routes/adminRoutes";
 import { verifyRole } from "../middlewares/verifyRoles";
 import { catRoute } from "../routes/catRoutes";
+import { slideRoutes } from "../routes/sliderRoutes";
 
 const app = express();
 dotenv.config();
@@ -43,6 +44,9 @@ app.use("/api/cat", catRoute);
 
 // admin routes
 app.use("/api/admin/", verifyRole(["admin"]), adminRoutes);
+
+// manage slider routes
+app.use("/api/slide", slideRoutes);
 
 app.listen(port, () => {
   console.log(`Port Running at server  http://localhost:${port}`);
