@@ -5,19 +5,23 @@ import { SlideTypes } from "../../../types/slideTypes";
 export const updateSlide = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
-
+    console.log(_id);
     if (!_id) {
       return res.status(404).json({ error: "Id not foound." });
     }
 
     const { btnTitle, btnLink, slideText } = req.body as SlideTypes;
+    console.log(req.body);
     const file = req.file;
     const SlideImg = file?.path || "";
+    console.log(SlideImg);
 
     const getSlide = (await Slider.findById(_id)) as SlideTypes;
     if (!getSlide) {
       return res.status(404).json({ error: "Slide not found." });
     }
+
+    console.log(getSlide);
 
     const updateSlide = await Slider.findByIdAndUpdate(_id, {
       btnTitle: btnTitle || getSlide.btnTitle,
@@ -25,6 +29,7 @@ export const updateSlide = async (req: Request, res: Response) => {
       slideImage: SlideImg || getSlide.slideImage,
       slideText: slideText || getSlide.slideText,
     });
+    console.log(updateSlide);
     if (!updateSlide) {
       return res
         .status(403)

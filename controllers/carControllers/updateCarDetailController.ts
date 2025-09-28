@@ -6,8 +6,14 @@ export const updateCarDetailsController = async (
   req: Request,
   res: Response
 ) => {
+  console.log("check -=====-  1");
   try {
     const _id = req.params.id;
+    if (!_id) {
+      return res.status(404).json({ error: "Car Id not found." });
+    }
+    console.log("check -=====-  2");
+
     const {
       name,
       brand,
@@ -21,12 +27,12 @@ export const updateCarDetailsController = async (
       pricePerDay,
       availability,
     } = req.body as carDetailsTypes;
+    console.log("check -=====-  3");
 
     const file = req.file;
-    if (!file) {
-      return res.status(404).json({ error: "Please provide car an image." });
-    }
+
     const carImg = file?.path || "";
+    console.log("check -=====-  4");
 
     const checkCarById = (await CarDetails.findById(_id)) as carDetailsTypes;
     if (!checkCarById) {
@@ -34,6 +40,7 @@ export const updateCarDetailsController = async (
         .status(400)
         .json({ error: "Car details not found by given ID." });
     }
+    console.log("check -=====-  5");
 
     const updateCarDetails = await CarDetails.updateOne(
       { _id },
@@ -54,6 +61,7 @@ export const updateCarDetailsController = async (
         },
       }
     );
+    console.log("check -=====-  6");
 
     if (!updateCarDetails) {
       return res
@@ -61,7 +69,10 @@ export const updateCarDetailsController = async (
         .json({ error: "You are not authorized to mofidy this data." });
     }
 
+    console.log("check -=====-  7");
+
     const updatedCar = await CarDetails.findById(_id);
+    console.log("check -=====-  8");
 
     return res
       .status(200)

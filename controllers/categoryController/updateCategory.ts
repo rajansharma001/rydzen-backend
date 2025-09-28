@@ -5,10 +5,10 @@ import { Category } from "../../model/categoryModel";
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
-    if (_id) {
+    if (!_id) {
       return res.status(404).json({ error: "Category Id not found." });
     }
-    const { catName, catSlug, catImg } = req.body as CatTypes;
+    const { catName, catSlug } = req.body as CatTypes;
 
     const getCategory = (await Category.findById(_id)) as CatTypes;
     if (!getCategory) {

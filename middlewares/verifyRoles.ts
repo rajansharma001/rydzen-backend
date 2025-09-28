@@ -9,7 +9,7 @@ interface MyJwtPayload extends jwt.JwtPayload {
 export const verifyRole = (allowedRoles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const token = req.cookies.token;
+      const token = req.cookies.TOKEN;
       if (!token) {
         return res.status(404).json({ error: "You are not logged-in." });
       }
@@ -23,8 +23,9 @@ export const verifyRole = (allowedRoles: string[]) => {
       if (!decode) {
         return res.status(403).json({ error: "Invalid or token expired." });
       }
+      console.log(decode);
 
-      const existingUser = await User.findOne({ _id: decode._id });
+      const existingUser = await User.findOne({ _id: decode.id });
       if (!existingUser) {
         return res.status(404).json({ error: "User not found." });
       }

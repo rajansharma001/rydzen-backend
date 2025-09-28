@@ -21,7 +21,7 @@ export const sendVerification = async ({
     });
 
     const sendMail = await transporter.sendMail({
-      from: `"NestTrip"  <${process.env.SENDER_EMAIL}>`,
+      from: `"Rydzen"  <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Verify your email to login",
       html: `

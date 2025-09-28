@@ -12,6 +12,12 @@ export const LoginController = async (req: Request, res: Response) => {
       return res.status(403).json({ error: `${email} is not found.` });
     }
 
+    if (!getUser.isVerified) {
+      return res
+        .status(401)
+        .json({ error: `your email: ${email} is not verified.` });
+    }
+
     const comparedPassword = await bcrypt.compare(password, getUser.password);
     if (!comparedPassword) {
       return res

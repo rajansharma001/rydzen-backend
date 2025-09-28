@@ -4,7 +4,10 @@ import { upload } from "../uploads/fileupload";
 import { verifyRole } from "../middlewares/verifyRoles";
 import { updateSlide } from "../controllers/adminControllers/sliderController/updateSlide";
 import { deleteSlide } from "../controllers/adminControllers/sliderController/deleteSlide";
-import { getSlide } from "../controllers/adminControllers/sliderController/getSlide";
+import {
+  getSlide,
+  getSlideById,
+} from "../controllers/adminControllers/sliderController/getSlide";
 
 export const slideRoutes = Router();
 
@@ -25,3 +28,5 @@ slideRoutes.patch(
 slideRoutes.delete("/delete-slide/:id", verifyRole(["admin"]), deleteSlide);
 
 slideRoutes.get("/get-slide", getSlide);
+
+slideRoutes.get("/get-singleslide/:id", getSlideById);

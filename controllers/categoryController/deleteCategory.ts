@@ -4,12 +4,12 @@ import { Category } from "../../model/categoryModel";
 export const deleteCategory = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
-    if (_id) {
+    if (!_id) {
       return res.status(404).json({ error: "Category Id not found." });
     }
 
     const checkCategory = await Category.findById(_id);
-    if (checkCategory) {
+    if (!checkCategory) {
       return res.status(404).json({ error: "Category not found." });
     }
 

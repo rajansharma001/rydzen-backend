@@ -27,11 +27,26 @@ export const singUpController = async (req: Request, res: Response) => {
     }
 
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      console.log("user");
+    if (existingUser && !existingUser.isVerified) {
+      const token = jwt.sign(
+        { _id: existingUser._id },
+        process.env.TOKEN_SECRET!,
+        {
+          expiresIn: "1h",
+        }
+      );
+      const verificationLink = `${process.env.CLIENT_URL}/verify-email/${token}`;
 
-      return res.status(409).json({ error: "User already exists." });
+      const sendMail = await sendVerification({
+        email,
+        verificationLink,
+        firstName,
+      });
+      return res.status(409).json({
+        error: "User already exists. Please verify your account to login.",
+      });
     }
+
     const hashedPassword = await hash(password, 12);
 
     const newUser = await User.create({

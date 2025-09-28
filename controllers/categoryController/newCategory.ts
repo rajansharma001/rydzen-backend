@@ -3,8 +3,8 @@ import { CatTypes } from "../../types/catTypes";
 import { Category } from "../../model/categoryModel";
 export const newCategory = async (req: Request, res: Response) => {
   try {
-    const { catName, catSlug, catImg } = req.body as CatTypes;
-    if (!catName || !catSlug || !catImg) {
+    const { catName, catSlug } = req.body as CatTypes;
+    if (!catName || !catSlug) {
       return res
         .status(404)
         .json({ error: "Please fill all required fields." });
@@ -12,7 +12,9 @@ export const newCategory = async (req: Request, res: Response) => {
 
     const file = req.file;
     if (!file) {
-      return res.status(404).json({ error: "Please provide car an image." });
+      return res
+        .status(404)
+        .json({ error: "Please provide an category image." });
     }
     const finalCatImg = file?.path || "";
     const newCategory = await Category.create({

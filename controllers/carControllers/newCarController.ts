@@ -3,6 +3,7 @@ import { carDetailsTypes } from "../../types/carDetails";
 import { CarDetails } from "../../model/carDetails";
 
 export const newCarController = async (req: Request, res: Response) => {
+  console.log("ReqBODY: ", req.body);
   try {
     const {
       name,
@@ -10,7 +11,6 @@ export const newCarController = async (req: Request, res: Response) => {
       model,
       category,
       year,
-      image,
       transmission,
       fuelType,
       seatingCapacity,

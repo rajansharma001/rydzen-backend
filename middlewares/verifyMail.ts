@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "lucide-react";
+import { User } from "../model/userModel";
 
 interface MyJwtPayload extends jwt.JwtPayload {
   _id: string;
@@ -25,6 +25,7 @@ export const verifEmail = async (req: Request, res: Response) => {
     if (decodedUser.isVerified !== false) {
       return res.status(400).json({ error: "email already verified." });
     }
+
     decodedUser.isVerified = true;
     await decodedUser.save();
 

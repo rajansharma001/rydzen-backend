@@ -41,7 +41,7 @@ app.use("/api/auth/", authRoutes);
 app.use("/api/car", carRoutes);
 
 // Car routes
-app.use("/api/cat", catRoute);
+app.use("/api/category", catRoute);
 
 // admin routes
 app.use("/api/admin/", verifyRole(["admin"]), adminRoutes);

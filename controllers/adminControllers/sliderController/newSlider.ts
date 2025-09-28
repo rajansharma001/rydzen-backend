@@ -5,6 +5,7 @@ import { Slider } from "../../../model/slideModel";
 export const newSlide = async (req: Request, res: Response) => {
   try {
     const { slideText, btnTitle, btnLink } = req.body as SlideTypes;
+    console.log(slideText, btnTitle, btnLink);
 
     if (!slideText || !btnLink || !btnTitle) {
       return res
@@ -19,6 +20,13 @@ export const newSlide = async (req: Request, res: Response) => {
     }
 
     const slideImg = file?.path || "";
+
+    const getSlider = await Slider.find();
+    if (getSlider.length >= 5) {
+      return res
+        .status(403)
+        .json({ error: "You can not add more than 5 slides." });
+    }
 
     const newSlide = await Slider.create({
       slideText,
