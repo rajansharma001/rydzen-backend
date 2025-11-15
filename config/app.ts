@@ -10,6 +10,7 @@ import { verifyRole } from "../middlewares/verifyRoles";
 import { catRoute } from "../routes/catRoutes";
 import { slideRoutes } from "../routes/sliderRoutes";
 import { publicRoutes } from "../routes/publicRoutes";
+import { userRoute } from "../routes/userRoutes";
 
 const app = express();
 dotenv.config();
@@ -42,6 +43,9 @@ app.use("/api/car", carRoutes);
 
 // Car routes
 app.use("/api/category", catRoute);
+
+// User routes
+app.use("/api/user", userRoute);
 
 // admin routes
 app.use("/api/admin/", verifyRole(["admin"]), adminRoutes);
